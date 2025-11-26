@@ -1,0 +1,18 @@
+{
+  "dependencies": {
+    "@betahuhn/feedback-js": "^2.1.25",
+    "aos": "^2.3.4",
+    "slick-carousel": "^1.8.1",
+    "swiper": "^12.0.2"
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.15",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "postcss-cli": "^11.0.0",
+    "tailwindcss": "^3.4.17"
+  },
+  "scripts": {
+    "watch": "npx tailwindcss -i assets/css/tailwind.css -o assets/css/tailwind-output.css --watch"
+  }
+}
