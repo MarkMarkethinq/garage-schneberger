@@ -66,13 +66,13 @@ $header_button = get_field('header_button_link', 'option');
         <div class="hidden lg:flex items-center gap-4">
           <?php if($header_button && $header_button['url']): ?>
             <a href="<?php echo esc_url($header_button['url']); ?>"
-              class="bg-primary-700 text-white rounded-lg cursor-pointer font-medium text-center shadow-xs transition-all duration-500 py-2.5 px-5 text-sm hover:bg-primary-800 whitespace-nowrap"
+              class="bg-primary-700 border border-primary-700 text-white rounded-xl cursor-pointer font-medium text-center shadow-xs transition-all duration-500 py-2.5 px-5 text-sm hover:bg-transparent hover:text-primary-700 whitespace-nowrap"
               <?php if($header_button['target']): ?>target="<?php echo esc_attr($header_button['target']); ?>"<?php endif; ?>>
               <?php echo esc_html($header_button['title'] ?: 'Plan een afspraak'); ?>
             </a>
           <?php else: ?>
             <a href="/contact"
-              class="bg-primary-700 text-white rounded-lg cursor-pointer font-medium text-center shadow-xs transition-all duration-500 py-2.5 px-5 text-sm hover:bg-primary-800 whitespace-nowrap">
+              class="bg-primary-700 border border-primary-700 text-white rounded-xl cursor-pointer font-medium text-center shadow-xs transition-all duration-500 py-2.5 px-5 text-sm hover:bg-transparent hover:text-primary-700 whitespace-nowrap">
               Plan een afspraak
             </a>
           <?php endif; ?>
