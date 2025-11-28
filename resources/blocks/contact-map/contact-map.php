@@ -1,28 +1,31 @@
 <?php
+/**
+ * Contact Map Block Template
+ */
+
 // Get ACF fields
 $title = get_field('title');
 $subtitle = get_field('subtitle');
-$layout = get_field('layout');
 $gravity_form_shortcode = get_field('gravity_form_shortcode');
-$contact_info = get_field('contact_info');
 $map_embed_code = get_field('map_embed_code');
-
-// Determine grid order based on layout
-$form_order = ($layout === 'form_right') ? 'lg:order-2' : 'lg:order-1';
-$map_order = ($layout === 'form_right') ? 'lg:order-1' : 'lg:order-2';
+$map_zoom = get_field('map_zoom');
+$contact_cards = get_field('contact_cards');
 ?>
 
-<section class="py-24" data-aos="fade-up">
+<section class="py-24">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div class="grid gap-4 mb-14" data-aos="fade-up" data-aos-delay="100">
-            <h2 class="text-secondary-700 text-left text-4xl font-manrope font-bold leading-snug"><?php echo esc_html($title); ?></h2>
-            <p class="text-gray-500 text-left text-sm md:text-base font-light"><?php echo esc_html($subtitle); ?></p>
-        </div>
-        <div class="grid lg:grid-cols-2 grid-cols-1 gap-8">
+        <?php if ($title): ?>
+            <h2 class="text-primary-700 text-4xl font-bold leading-10 font-serif text-center" data-aos="fade-up"><?php echo esc_html($title); ?></h2>
+        <?php endif; ?>
+        <?php if ($subtitle): ?>
+            <div class="font-sans text-gray-500 text-base font-normal leading-7 pt-4 text-center" data-aos="fade-up" data-aos-delay="100"><?php echo wp_kses_post($subtitle); ?></div>
+        <?php endif; ?>
+        
+        <div class="pt-14 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
             <!-- Form Section -->
-            <div class="flex flex-col gap-8 <?php echo esc_attr($form_order); ?>" data-aos="fade-right" data-aos-delay="200">
+            <div class="flex flex-col gap-10" data-aos="fade-right">
                 <?php if ($gravity_form_shortcode): ?>
-                    <div class="gravity-form-wrapper">
+                    <div class="gravity-form-wrapper bg-[#fafafa] border border-gray-200 rounded-2xl p-8">
                         <?php echo do_shortcode($gravity_form_shortcode); ?>
                     </div>
                 <?php else: ?>
@@ -32,53 +35,58 @@ $map_order = ($layout === 'form_right') ? 'lg:order-1' : 'lg:order-2';
                 <?php endif; ?>
             </div>
             
-            <!-- Contact Info & Map Section -->
-            <div class="flex flex-col gap-8 <?php echo esc_attr($map_order); ?>" data-aos="fade-left" data-aos-delay="200">
-                <?php if ($contact_info && is_array($contact_info)): ?>
-                    <div class="flex flex-col gap-6 border-b border-gray-100 pb-6">
-                        <?php foreach ($contact_info as $info): 
-                            $icon = $info['icon'];
-                            $text = $info['text'];
-                            $link = $info['link'];
-                            $icon_url = $icon ? $icon['url'] : '';
-                            $icon_alt = $icon ? $icon['alt'] : '';
-                        ?>
-                            <?php if ($link): ?>
-                                <a href="<?php echo esc_url($link); ?>" class="flex gap-5 hover:opacity-80 transition-opacity">
-                            <?php else: ?>
-                                <div class="flex gap-5">
-                            <?php endif; ?>
-                                <?php if ($icon_url): ?>
-                                    <img src="<?php echo esc_url($icon_url); ?>" alt="<?php echo esc_attr($icon_alt); ?>" width="30" height="30" class="flex-shrink-0">
-                                <?php endif; ?>
-                                <h6 class="text-gray-500 text-sm md:text-base font-light flex items-center hover:text-primary-700 transition-colors"><?php echo esc_html($text); ?></h6>
-                            <?php if ($link): ?>
-                                </a>
-                            <?php else: ?>
-                                </div>
-                            <?php endif; ?>
-                        <?php endforeach; ?>
-                    </div>
-                <?php endif; ?>
-                
+            <!-- Map & Contact Cards Section -->
+            <div class="h-full flex flex-col gap-8" data-aos="fade-left" data-aos-delay="100">
                 <?php if ($map_embed_code): ?>
-                    <div class="lg:h-full h-[336px] rounded-2xl overflow-hidden">
-                        <div class="w-full h-full">
-                            <?php 
-                            // Make iframe responsive by removing fixed width/height attributes
-                            $responsive_map = preg_replace('/(width|height)="[^"]*"/i', '', $map_embed_code);
-                            $responsive_map = str_replace('<iframe', '<iframe class="w-full h-full"', $responsive_map);
-                            echo $responsive_map; 
-                            ?>
-                        </div>
+                    <div class="rounded-2xl overflow-hidden">
+                        <?php 
+                        // Make iframe responsive
+                        $responsive_map = preg_replace('/(width|height)="[^"]*"/i', '', $map_embed_code);
+                        $responsive_map = str_replace('<iframe', '<iframe class="w-full" height="320"', $responsive_map);
+                        
+                        // Apply custom zoom if set (formula: distance = 591657550.5 / 2^zoom)
+                        if ($map_zoom) {
+                            $zoom_distance = 591657550.5 / pow(2, intval($map_zoom));
+                            $responsive_map = preg_replace('/!1d[\d.]+/', '!1d' . $zoom_distance, $responsive_map);
+                        }
+                        
+                        echo $responsive_map; 
+                        ?>
                     </div>
                 <?php else: ?>
-                    <div class="lg:h-full h-[336px] rounded-2xl bg-gray-100 flex items-center justify-center">
-                        <p class="text-gray-500">Voeg een Google Maps embed code toe in de block instellingen.</p>
+                    <div class="rounded-2xl bg-gray-100 h-[320px] flex items-center justify-center">
+                        <p class="text-gray-500">Voeg een Google Maps embed code toe.</p>
+                    </div>
+                <?php endif; ?>
+
+                <?php if ($contact_cards && is_array($contact_cards)): ?>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-8">
+                        <?php foreach ($contact_cards as $card): 
+                            $card_title = $card['card_title'];
+                            $card_content = $card['card_content'];
+                            $card_link = $card['card_link'];
+                        ?>
+                            <div class="p-5 flex flex-col gap-3 border border-gray-200 rounded-2xl">
+                                <?php if ($card_title): ?>
+                                    <h5 class="font-sans text-xl font-semibold leading-8 text-primary-700">
+                                        <?php echo esc_html($card_title); ?>
+                                    </h5>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="82" height="2" viewBox="0 0 82 2" fill="none">
+                                        <path d="M1 1H81" stroke="#E5E7EB" stroke-linecap="round" />
+                                    </svg>
+                                <?php endif; ?>
+                                <?php if ($card_content): ?>
+                                    <?php if ($card_link): ?>
+                                        <a href="<?php echo esc_url($card_link); ?>" class="font-sans text-lg font-normal leading-7 text-gray-900 hover:text-primary-700 transition-colors"><?php echo nl2br(esc_html($card_content)); ?></a>
+                                    <?php else: ?>
+                                        <span class="font-sans text-lg font-normal leading-7 text-gray-900"><?php echo nl2br(esc_html($card_content)); ?></span>
+                                    <?php endif; ?>
+                                <?php endif; ?>
+                            </div>
+                        <?php endforeach; ?>
                     </div>
                 <?php endif; ?>
             </div>
         </div>
     </div>
 </section>
-                                                    

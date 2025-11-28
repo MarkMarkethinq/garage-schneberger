@@ -52,6 +52,35 @@ acf_add_local_field_group(array(
             'return_format' => 'array',
         ),
         
+        // Accordion: Mobiel Menu
+        array(
+            'key' => 'field_accordion_mobile_menu',
+            'label' => 'Mobiel Menu',
+            'type' => 'accordion',
+            'open' => 0,
+            'multi_expand' => 1,
+        ),
+        array(
+            'key' => 'field_mobile_menu_contact_label',
+            'label' => 'Contact Label',
+            'name' => 'mobile_menu_contact_label',
+            'type' => 'text',
+            'instructions' => 'Bijv. "Vragen? Neem contact op"',
+        ),
+        array(
+            'key' => 'field_mobile_menu_phone',
+            'label' => 'Telefoonnummer',
+            'name' => 'mobile_menu_phone',
+            'type' => 'text',
+            'instructions' => 'Telefoonnummer dat getoond wordt in het mobiele menu',
+        ),
+        array(
+            'key' => 'field_accordion_mobile_menu_end',
+            'label' => 'Einde Mobiel Menu',
+            'type' => 'accordion',
+            'endpoint' => 1,
+        ),
+        
         // Tab: Footer
         array(
             'key' => 'field_footer_tab',

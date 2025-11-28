@@ -108,4 +108,82 @@ class WPDocs_Walker_Nav_Menu extends Walker_Nav_Menu {
     function end_el( &$output, $item, $depth = 0, $args = array() ) {
         $output .= "</li>\n";
     }
+}
+
+/**
+ * Mobile Menu Walker - Liquid Glass Design
+ * Custom walker voor het mobiele menu met mooie styling
+ */
+class Mobile_Menu_Walker extends Walker_Nav_Menu {
+
+    /**
+     * Starts the list before the elements are added.
+     */
+    function start_lvl( &$output, $depth = 0, $args = array() ) {
+        $indent = str_repeat("\t", $depth);
+        $output .= "\n" . $indent . '<ul class="mobile-submenu pl-4 mt-2 space-y-1 border-l-2 border-white/20">' . "\n";
+    }
+
+    /**
+     * Ends the list of after the elements are added.
+     */
+    function end_lvl( &$output, $depth = 0, $args = array() ) {
+        $indent = str_repeat("\t", $depth);
+        $output .= "$indent</ul>\n";
+    }
+
+    /**
+     * Start the element output.
+     */
+    function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
+        $indent = str_repeat("\t", $depth);
+        
+        $classes = empty($item->classes) ? array() : (array) $item->classes;
+        $has_children = in_array('menu-item-has-children', $classes);
+        
+        // Li classes
+        $li_classes = 'mobile-menu-item';
+        if ($has_children) {
+            $li_classes .= ' has-submenu';
+        }
+        
+        $output .= $indent . '<li class="' . esc_attr($li_classes) . '">';
+        
+        // Link attributes
+        $attributes = '';
+        $attributes .= !empty($item->target) ? ' target="' . esc_attr($item->target) . '"' : '';
+        $attributes .= !empty($item->xfn) ? ' rel="' . esc_attr($item->xfn) . '"' : '';
+        $attributes .= !empty($item->url) ? ' href="' . esc_attr($item->url) . '"' : '';
+        
+        // Link classes based on depth
+        if ($depth === 0) {
+            $link_classes = 'flex items-center justify-between w-full py-3 px-4 !text-white text-lg font-medium rounded-xl hover:bg-white/10 transition-all duration-300';
+        } else {
+            $link_classes = 'block py-2 px-3 !text-white/80 text-base hover:!text-white hover:bg-white/5 rounded-lg transition-all duration-300';
+        }
+        
+        $attributes .= ' class="' . esc_attr($link_classes) . '"';
+        
+        // Dropdown icon for items with children
+        $dropdown_icon = '';
+        if ($has_children) {
+            $dropdown_icon = '<svg class="mobile-submenu-toggle w-5 h-5 text-white/60 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>';
+        }
+        
+        $item_output = sprintf(
+            '<a%s><span>%s</span>%s</a>',
+            $attributes,
+            apply_filters('the_title', $item->title, $item->ID),
+            $dropdown_icon
+        );
+        
+        $output .= apply_filters('walker_nav_menu_start_el', $item_output, $item, $depth, $args);
+    }
+
+    /**
+     * Ends the element output.
+     */
+    function end_el( &$output, $item, $depth = 0, $args = array() ) {
+        $output .= "</li>\n";
+    }
 } 

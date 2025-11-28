@@ -36,7 +36,7 @@ $contact_button = get_field('footer_contact_button_link', 'option');
             <a href="<?php echo esc_url(home_url('/')); ?>" class="py-1.5 ">
               <img src="<?php echo esc_url($footer_logo['url']); ?>" 
                    alt="<?php echo esc_attr($footer_logo['alt'] ?: get_bloginfo('name')); ?>" 
-                   class="h-12 w-auto object-contain">
+                   class="h-16 w-auto object-contain">
             </a>
             <?php else: ?>
             <a href="<?php echo esc_url(home_url('/')); ?>" class="py-1.5 ">
@@ -96,10 +96,10 @@ $contact_button = get_field('footer_contact_button_link', 'option');
               <li><p class="text-base font-normal max-sm:text-center text-gray-300 whitespace-pre-line"><?php echo esc_html($address); ?></p></li>
               <?php endif; ?>
               <?php if($phone): ?>
-              <li><a href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $phone)); ?>" class="text-base font-normal max-sm:text-center text-gray-300 whitespace-nowrap hover:text-white transition-colors"><?php echo esc_html($phone); ?></a></li>
+              <li><a href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $phone)); ?>" class="block text-base font-normal max-sm:text-center text-gray-300 whitespace-nowrap hover:text-white transition-colors"><?php echo esc_html($phone); ?></a></li>
               <?php endif; ?>
               <?php if($email): ?>
-              <li><a href="mailto:<?php echo esc_attr($email); ?>" class="text-base font-normal max-sm:text-center text-gray-300 whitespace-nowrap hover:text-white transition-colors"><?php echo esc_html($email); ?></a></li>
+              <li><a href="mailto:<?php echo esc_attr($email); ?>" class="block text-base font-normal max-sm:text-center text-gray-300 whitespace-nowrap hover:text-white transition-colors"><?php echo esc_html($email); ?></a></li>
               <?php endif; ?>
             </ul>
           </div>

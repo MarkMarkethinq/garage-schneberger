@@ -15,18 +15,18 @@ $quote = get_field('quote');
 
 <section class="relative pt-8 lg:pt-32 pb-14">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 lg:grid-cols-12 xl:gap-24 lg:gap-6 gap-4 items-center">
-            <div class="w-full lg:col-span-6 lg:pb-0 pb-12 md:order-first">
+        <div class="grid grid-cols-1 lg:grid-cols-12 xl:gap-24 lg:gap-6 gap-4 items-stretch">
+            <div class="w-full lg:col-span-6 lg:pb-0 pb-12 md:order-first" data-aos="fade-right">
                 <div class="text-center lg:text-left relative">
                     <?php if (function_exists('yoast_breadcrumb')) : ?>
-                        <div class="mb-8 bg-primary-100 py-1.5 px-3.5 text-red-600 flex items-center mx-auto lg:mx-0 rounded-full w-fit font-inter text-xs hero-los-breadcrumb">
+                        <div class="mb-8 bg-primary-100 py-1.5 px-3.5 text-red-600 flex items-center mx-auto lg:mx-0 rounded-full w-fit font-sans text-xs hero-los-breadcrumb">
                             <span class="mr-2 w-1.5 h-1.5 rounded-full bg-red-600 flex"></span><?php yoast_breadcrumb(); ?>
                         </div>
                     <?php endif; ?>
 
                     <?php if ($titel_bold || $titel_regular) : ?>
                         <div class="relative mb-8 lg:mb-20">
-                            <h1 class="pb-5 text-center text-gray-900 font-manrope text-4xl md:text-5xl lg:text-left !leading-snug">
+                            <h1 class="pb-5 text-center text-gray-900 font-serif text-4xl md:text-5xl lg:text-left !leading-snug">
                                 <?php if ($titel_bold) : ?>
                                     <span class="font-bold"><?php echo esc_html($titel_bold); ?></span>
                                 <?php endif; ?>
@@ -69,16 +69,17 @@ $quote = get_field('quote');
                 </div>
             </div>
 
-            <div class="w-full lg:col-span-6">
-                <div class="relative flex justify-center lg:mb-0 mb-10">
+            <div class="w-full lg:col-span-6" data-aos="fade-left" data-aos-delay="100">
+                <div class="relative flex justify-center lg:mb-0 mb-10 h-full">
                     <?php if ($afbeelding) : ?>
-                        <img src="<?php echo esc_url($afbeelding['url']); ?>" alt="<?php echo esc_attr($afbeelding['alt']); ?>" class="w-full rounded-3xl object-cover" />
+                        <img src="<?php echo esc_url($afbeelding['url']); ?>" alt="<?php echo esc_attr($afbeelding['alt']); ?>" class="w-full h-full rounded-3xl object-cover" />
+                        <div class="absolute inset-0 bg-black/40 rounded-3xl"></div>
                     <?php endif; ?>
 
                     <?php if ($quote) : ?>
                         <div class="flex justify-between items-end absolute bottom-0 p-5 w-full">
                             <div class="block xl:mr-0 mr-10">
-                                <h3 class="text-5xl font-medium text-white font-serif leading-snug mb-5">
+                                <h3 class="md:text-5xl text-2xl font-medium text-white font-serif leading-snug mb-5">
                                     "<?php echo esc_html($quote); ?>"
                                 </h3>
                             </div>

@@ -35,21 +35,20 @@ function register_features_fields() {
             'title' => 'Features Instellingen',
             'fields' => array(
                 array(
-                    'key' => 'field_features_accordion_content',
-                    'label' => 'Features Instellingen',
-                    'name' => 'accordion_content_features',
+                    'key' => 'field_features_accordion',
+                    'label' => 'Features',
+                    'name' => '',
                     'type' => 'accordion',
-                    'instructions' => '',
-                    'required' => 0,
-                    'conditional_logic' => 0,
-                    'wrapper' => array(
-                        'width' => '',
-                        'class' => '',
-                        'id' => '',
-                    ),
                     'open' => 1,
-                    'multi_expand' => 0,
-                    'endpoint' => 0,
+                ),
+
+                // Tab: Content
+                array(
+                    'key' => 'field_features_tab_content',
+                    'label' => 'Content',
+                    'name' => '',
+                    'type' => 'tab',
+                    'placement' => 'top',
                 ),
                 array(
                     'key' => 'field_features_title',
@@ -57,6 +56,14 @@ function register_features_fields() {
                     'name' => 'title',
                     'type' => 'text',
                     'required' => 0,
+                ),
+                // Tab: Features
+                array(
+                    'key' => 'field_features_tab_features',
+                    'label' => 'Features',
+                    'name' => '',
+                    'type' => 'tab',
+                    'placement' => 'top',
                 ),
                 array(
                     'key' => 'field_features_repeater',
@@ -108,6 +115,14 @@ function register_features_fields() {
                             ),
                         ),
                     ),
+                ),
+                // Tab: Afbeelding
+                array(
+                    'key' => 'field_features_tab_afbeelding',
+                    'label' => 'Afbeelding',
+                    'name' => '',
+                    'type' => 'tab',
+                    'placement' => 'top',
                 ),
                 array(
                     'key' => 'field_features_image',

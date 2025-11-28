@@ -54,16 +54,19 @@ $image_classes = $is_horizontal ? 'h-full' : 'w-full max-h-[500px]';
     <div class="w-full max-w-7xl px-4 md:px-5 lg:px-5 mx-auto">
         <div class="w-full justify-start items-center gap-8 grid <?php echo esc_attr($grid_classes); ?>">
             
-            <?php if ($image) : ?>
-            <img class="lg:mx-0 mx-auto <?php echo esc_attr($image_classes); ?> rounded-3xl object-cover <?php echo esc_attr($image_order); ?>" 
+            <?php 
+            $image_aos = ($image_position === 'left' || $image_position === 'top') ? 'fade-right' : 'fade-left';
+            if ($image) : ?>
+            <img class="lg:mx-0 mx-auto <?php echo esc_attr($image_classes); ?> rounded-3xl object-cover <?php echo esc_attr($image_order); ?>" data-aos="<?php echo esc_attr($image_aos); ?>" 
                  src="<?php echo esc_url($image['url']); ?>" 
                  alt="<?php echo esc_attr($image['alt']); ?>" />
             <?php endif; ?>
             
-            <div class="w-full flex-col justify-start lg:items-start items-center gap-10 inline-flex <?php echo esc_attr($content_order); ?>">
+            <?php $content_aos = ($image_position === 'left' || $image_position === 'top') ? 'fade-left' : 'fade-right'; ?>
+            <div class="w-full flex-col justify-start lg:items-start items-center gap-10 inline-flex <?php echo esc_attr($content_order); ?>" data-aos="<?php echo esc_attr($content_aos); ?>" data-aos-delay="100">
                 <div class="w-full flex-col justify-start lg:items-start items-center gap-4 flex">
                     <?php if ($title) : ?>
-                    <h2 class="<?php echo esc_attr($title_classes); ?> text-4xl font-bold font-manrope leading-normal lg:text-start text-center"><?php echo esc_html($title); ?></h2>
+                    <h2 class="<?php echo esc_attr($title_classes); ?> text-4xl font-bold font-serif leading-normal lg:text-start text-center"><?php echo esc_html($title); ?></h2>
                     <?php endif; ?>
                     
                     <?php if ($text) : ?>

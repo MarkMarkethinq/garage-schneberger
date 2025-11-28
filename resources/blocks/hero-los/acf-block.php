@@ -26,13 +26,22 @@ add_action('acf/init', function () {
             'key'      => 'group_hero_los',
             'title'    => 'Hero Los',
             'fields'   => [
-                // Accordion: Content
+                // Main Accordion
                 [
-                    'key'   => 'field_hero_los_accordion_content',
-                    'label' => 'Content',
+                    'key'   => 'field_hero_los_accordion',
+                    'label' => 'Hero los',
                     'name'  => '',
                     'type'  => 'accordion',
                     'open'  => 1,
+                ],
+
+                // Tab: Content
+                [
+                    'key'       => 'field_hero_los_tab_content',
+                    'label'     => 'Content',
+                    'name'      => '',
+                    'type'      => 'tab',
+                    'placement' => 'top',
                 ],
                 [
                     'key'          => 'field_hero_los_titel_bold',
@@ -58,12 +67,13 @@ add_action('acf/init', function () {
                     'media_upload' => 0,
                 ],
 
-                // Accordion: Buttons
+                // Tab: Buttons
                 [
-                    'key'   => 'field_hero_los_accordion_buttons',
-                    'label' => 'Buttons',
-                    'name'  => '',
-                    'type'  => 'accordion',
+                    'key'       => 'field_hero_los_tab_buttons',
+                    'label'     => 'Buttons',
+                    'name'      => '',
+                    'type'      => 'tab',
+                    'placement' => 'top',
                 ],
                 [
                     'key'   => 'field_hero_los_button_primair',
@@ -80,12 +90,13 @@ add_action('acf/init', function () {
                     'wrapper' => ['width' => '50'],
                 ],
 
-                // Accordion: Afbeelding
+                // Tab: Afbeelding
                 [
-                    'key'   => 'field_hero_los_accordion_afbeelding',
-                    'label' => 'Afbeelding',
-                    'name'  => '',
-                    'type'  => 'accordion',
+                    'key'       => 'field_hero_los_tab_afbeelding',
+                    'label'     => 'Afbeelding',
+                    'name'      => '',
+                    'type'      => 'tab',
+                    'placement' => 'top',
                 ],
                 [
                     'key'           => 'field_hero_los_afbeelding',
@@ -104,10 +115,10 @@ add_action('acf/init', function () {
 
                 // Accordion End
                 [
-                    'key'   => 'field_hero_los_accordion_end',
-                    'label' => 'Accordion End',
-                    'name'  => '',
-                    'type'  => 'accordion',
+                    'key'      => 'field_hero_los_accordion_end',
+                    'label'    => 'Accordion End',
+                    'name'     => '',
+                    'type'     => 'accordion',
                     'endpoint' => 1,
                 ],
             ],

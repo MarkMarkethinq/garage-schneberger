@@ -11,7 +11,7 @@ $button = get_field('button');
 ?>
 
 <div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 mb-16">
-    <section class="relative py-16 bg-cover bg-center bg-no-repeat rounded-[24px] overflow-hidden"
+    <section class="relative py-16 bg-cover bg-center bg-no-repeat rounded-[24px] overflow-hidden" data-aos="zoom-in"
         style="background-image: url(<?php echo $background_image ? esc_url($background_image['url']) : ''; ?>);">
         <!-- Black overlay -->
         <div class="absolute inset-0 bg-black/50"></div>
@@ -19,11 +19,11 @@ $button = get_field('button');
         <div class="relative z-10 px-8 lg:px-16">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
                 <?php if ($title) : ?>
-                <div>
+                <div data-aos="fade-right" data-aos-delay="200">
                     <h2 class="text-white font-serif font-semibold text-4xl lg:text-5xl leading-tight text-center lg:text-left"><?php echo esc_html($title); ?></h2>
                 </div>
                 <?php endif; ?>
-                <div class="flex flex-col gap-6">
+                <div class="flex flex-col gap-6" data-aos="fade-left" data-aos-delay="300">
                     <?php if ($text) : ?>
                     <div class="text-base font-normal leading-7 text-gray-200 text-center lg:text-left"><?php echo wp_kses_post($text); ?></div>
                     <?php endif; ?>

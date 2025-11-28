@@ -31,21 +31,19 @@ add_action('acf/init', function() {
             'fields' => [
                 [
                     'key' => 'field_cta_accordion',
-                    'label' => 'CTA Instellingen',
+                    'label' => 'CTA',
                     'name' => '',
                     'type' => 'accordion',
                     'open' => 1,
-                    'multi_expand' => 0,
-                    'endpoint' => 0,
                 ],
+
+                // Tab: Content
                 [
-                    'key' => 'field_cta_background_image',
-                    'label' => 'Achtergrondafbeelding',
-                    'name' => 'background_image',
-                    'type' => 'image',
-                    'return_format' => 'array',
-                    'preview_size' => 'medium',
-                    'library' => 'all',
+                    'key' => 'field_cta_tab_content',
+                    'label' => 'Content',
+                    'name' => '',
+                    'type' => 'tab',
+                    'placement' => 'top',
                 ],
                 [
                     'key' => 'field_cta_title',
@@ -62,6 +60,15 @@ add_action('acf/init', function() {
                     'toolbar' => 'full',
                     'media_upload' => 0,
                 ],
+
+                // Tab: Button
+                [
+                    'key' => 'field_cta_tab_button',
+                    'label' => 'Button',
+                    'name' => '',
+                    'type' => 'tab',
+                    'placement' => 'top',
+                ],
                 [
                     'key' => 'field_cta_button',
                     'label' => 'Button',
@@ -69,6 +76,25 @@ add_action('acf/init', function() {
                     'type' => 'link',
                     'return_format' => 'array',
                 ],
+
+                // Tab: Afbeelding
+                [
+                    'key' => 'field_cta_tab_afbeelding',
+                    'label' => 'Afbeelding',
+                    'name' => '',
+                    'type' => 'tab',
+                    'placement' => 'top',
+                ],
+                [
+                    'key' => 'field_cta_background_image',
+                    'label' => 'Achtergrondafbeelding',
+                    'name' => 'background_image',
+                    'type' => 'image',
+                    'return_format' => 'array',
+                    'preview_size' => 'medium',
+                    'library' => 'all',
+                ],
+                // Accordion End
                 [
                     'key' => 'field_cta_accordion_end',
                     'label' => 'Accordion End',

@@ -29,14 +29,22 @@ add_action('acf/init', function() {
             'key' => 'group_image_content_block',
             'title' => 'Image Content Block',
             'fields' => [
+                // Main Accordion
                 [
-                    'key' => 'field_image_content_accordion_layout',
-                    'label' => 'Layout Instellingen',
+                    'key' => 'field_image_content_accordion',
+                    'label' => 'Image Content',
                     'name' => '',
                     'type' => 'accordion',
                     'open' => 1,
-                    'multi_expand' => 0,
-                    'endpoint' => 0,
+                ],
+
+                // Tab: Layout
+                [
+                    'key' => 'field_image_content_tab_layout',
+                    'label' => 'Layout',
+                    'name' => '',
+                    'type' => 'tab',
+                    'placement' => 'top',
                 ],
                 [
                     'key' => 'field_image_content_image_position',
@@ -67,14 +75,14 @@ add_action('acf/init', function() {
                         'width' => '50',
                     ],
                 ],
+
+                // Tab: Content
                 [
-                    'key' => 'field_image_content_accordion_content',
+                    'key' => 'field_image_content_tab_content',
                     'label' => 'Content',
                     'name' => '',
-                    'type' => 'accordion',
-                    'open' => 1,
-                    'multi_expand' => 0,
-                    'endpoint' => 0,
+                    'type' => 'tab',
+                    'placement' => 'top',
                 ],
                 [
                     'key' => 'field_image_content_image',
@@ -107,6 +115,8 @@ add_action('acf/init', function() {
                     'type' => 'link',
                     'return_format' => 'array',
                 ],
+
+                // Accordion End
                 [
                     'key' => 'field_image_content_accordion_end',
                     'label' => 'Accordion End',

@@ -35,30 +35,20 @@ function register_hero_home_fields() {
             'title' => 'Hero Home Instellingen',
             'fields' => array(
                 array(
-                    'key' => 'field_hh_accordion_content',
-                    'label' => 'Hero Home Instellingen',
-                    'name' => 'accordion_content_hh',
+                    'key' => 'field_hh_accordion',
+                    'label' => 'Hero Home',
+                    'name' => '',
                     'type' => 'accordion',
-                    'instructions' => '',
-                    'required' => 0,
-                    'conditional_logic' => 0,
-                    'wrapper' => array(
-                        'width' => '',
-                        'class' => '',
-                        'id' => '',
-                    ),
                     'open' => 1,
-                    'multi_expand' => 0,
-                    'endpoint' => 0,
                 ),
+
+                // Tab: Content
                 array(
-                    'key' => 'field_hero_background_image',
-                    'label' => 'Achtergrond Afbeelding',
-                    'name' => 'background_image',
-                    'type' => 'image',
-                    'return_format' => 'url',
-                    'preview_size' => 'large',
-                    'required' => 1,
+                    'key' => 'field_hh_tab_content',
+                    'label' => 'Content',
+                    'name' => '',
+                    'type' => 'tab',
+                    'placement' => 'top',
                 ),
                 array(
                     'key' => 'field_hero_title',
@@ -77,6 +67,15 @@ function register_hero_home_fields() {
                     'tabs' => 'all',
                     'toolbar' => 'full',
                     'media_upload' => 0,
+                ),
+
+                // Tab: USPs
+                array(
+                    'key' => 'field_hh_tab_usps',
+                    'label' => 'USPs',
+                    'name' => '',
+                    'type' => 'tab',
+                    'placement' => 'top',
                 ),
                 array(
                     'key' => 'field_hero_usps',
@@ -102,12 +101,22 @@ function register_hero_home_fields() {
                         ),
                     ),
                 ),
+
+                // Tab: Button
+                array(
+                    'key' => 'field_hh_tab_button',
+                    'label' => 'Button',
+                    'name' => '',
+                    'type' => 'tab',
+                    'placement' => 'top',
+                ),
                 array(
                     'key' => 'field_hero_button_text',
                     'label' => 'Button Tekst',
                     'name' => 'button_text',
                     'type' => 'text',
                     'required' => 1,
+                    'wrapper' => array('width' => '50'),
                 ),
                 array(
                     'key' => 'field_hero_button_link',
@@ -115,6 +124,16 @@ function register_hero_home_fields() {
                     'name' => 'button_link',
                     'type' => 'url',
                     'required' => 1,
+                    'wrapper' => array('width' => '50'),
+                ),
+
+                // Tab: Counters
+                array(
+                    'key' => 'field_hh_tab_counters',
+                    'label' => 'Counters',
+                    'name' => '',
+                    'type' => 'tab',
+                    'placement' => 'top',
                 ),
                 array(
                     'key' => 'field_hero_counters',
@@ -128,8 +147,21 @@ function register_hero_home_fields() {
                             'key' => 'field_counter_number',
                             'label' => 'Nummer',
                             'name' => 'number',
-                            'type' => 'text',
+                            'type' => 'number',
                             'required' => 1,
+                            'wrapper' => array(
+                                'width' => '30',
+                            ),
+                        ),
+                        array(
+                            'key' => 'field_counter_suffix',
+                            'label' => 'Suffix',
+                            'name' => 'suffix',
+                            'type' => 'text',
+                            'instructions' => 'Bijv. +, k, %',
+                            'wrapper' => array(
+                                'width' => '20',
+                            ),
                         ),
                         array(
                             'key' => 'field_counter_label',
@@ -137,9 +169,31 @@ function register_hero_home_fields() {
                             'name' => 'label',
                             'type' => 'text',
                             'required' => 1,
+                            'wrapper' => array(
+                                'width' => '50',
+                            ),
                         ),
                     ),
                 ),
+
+                // Tab: Afbeelding
+                array(
+                    'key' => 'field_hh_tab_afbeelding',
+                    'label' => 'Afbeelding',
+                    'name' => '',
+                    'type' => 'tab',
+                    'placement' => 'top',
+                ),
+                array(
+                    'key' => 'field_hero_background_image',
+                    'label' => 'Achtergrond Afbeelding',
+                    'name' => 'background_image',
+                    'type' => 'image',
+                    'return_format' => 'url',
+                    'preview_size' => 'large',
+                    'required' => 1,
+                ),
+                // Accordion End
                 array(
                     'key' => 'field_hh_accordion_end',
                     'label' => '',

@@ -1,318 +1,202 @@
-// Menu toggle functionaliteit
+// Mobile Menu - Liquid Glass Design
 document.addEventListener('DOMContentLoaded', function() {
     const menuButton = document.getElementById('mobile-menu-toggle');
     const mobileMenu = document.getElementById('mobile-menu');
     const hamburgerIcon = document.getElementById('hamburger-icon');
     const closeIcon = document.getElementById('close-icon');
+    const backdrop = document.getElementById('mobile-menu-backdrop');
+    const menuCard = document.getElementById('mobile-menu-card');
+    const contactInfo = document.getElementById('mobile-menu-contact');
+    let isMenuOpen = false;
     
     if (menuButton && mobileMenu) {
-        // Voeg click event toe
+        // Toggle menu
         menuButton.addEventListener('click', function() {
-            const isMenuOpen = !mobileMenu.classList.contains('hidden');
-            
             if (isMenuOpen) {
-                // Menu is open, sluit het met animatie
-                mobileMenu.classList.add('hidden');
-                menuButton.setAttribute('aria-expanded', 'false');
-                
-                // Reset menu items voor volgende opening
-                const menuItems = mobileMenu.querySelectorAll('ul li');
-                menuItems.forEach(item => {
-                    item.style.transform = 'translateX(1rem)';
-                    item.style.opacity = '0';
-                });
+                closeMobileMenu();
             } else {
-                // Menu is dicht, open het met animatie
-                mobileMenu.classList.remove('hidden');
-                menuButton.setAttribute('aria-expanded', 'true');
-                
-                // Animeer menu items met staggered effect
-                const menuItems = mobileMenu.querySelectorAll('ul li');
-                menuItems.forEach((item, index) => {
-                    setTimeout(() => {
-                        item.style.transform = 'translateX(0)';
-                        item.style.opacity = '1';
-                    }, index * 100);
-                });
+                openMobileMenu();
+            }
+        });
+        
+        // Close menu when clicking on backdrop
+        if (backdrop) {
+            backdrop.addEventListener('click', closeMobileMenu);
+        }
+        
+        // Close menu with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && isMenuOpen) {
+                closeMobileMenu();
+            }
+        });
+        
+        // Close menu when clicking on a menu link (not submenu toggles)
+        mobileMenu.addEventListener('click', function(e) {
+            const link = e.target.closest('a');
+            if (link && !link.querySelector('.mobile-submenu-toggle')) {
+                // Small delay to allow navigation
+                setTimeout(closeMobileMenu, 100);
             }
         });
     }
-
-    // Submenu functionaliteit voor mobiel
-    setupMobileSubmenu();
+    
+    function openMobileMenu() {
+        isMenuOpen = true;
+        mobileMenu.classList.remove('hidden');
+        menuButton.setAttribute('aria-expanded', 'true');
+        
+        // Lock scroll on body (works on iOS too)
+        document.body.style.overflow = 'hidden';
+        document.body.style.position = 'fixed';
+        document.body.style.width = '100%';
+        document.body.style.top = `-${window.scrollY}px`;
+        document.documentElement.style.backgroundColor = 'rgba(28, 28, 30, 0.95)';
+        document.body.style.backgroundColor = 'rgba(28, 28, 30, 0.95)';
+        
+        // Toggle icons and colors
+        if (hamburgerIcon) hamburgerIcon.classList.add('hidden');
+        if (closeIcon) closeIcon.classList.remove('hidden');
+        if (menuButton) menuButton.classList.add('text-white', 'hover:bg-white/10');
+        if (menuButton) menuButton.classList.remove('text-gray-700', 'hover:bg-gray-100');
+        
+        // Animate backdrop
+        requestAnimationFrame(() => {
+            if (backdrop) backdrop.classList.remove('opacity-0');
+            if (backdrop) backdrop.classList.add('opacity-100');
+            
+            // Animate menu card
+            setTimeout(() => {
+                if (menuCard) {
+                    menuCard.classList.remove('translate-y-8', 'opacity-0');
+                    menuCard.classList.add('translate-y-0', 'opacity-100');
+                }
+            }, 100);
+            
+            // Animate contact info
+            setTimeout(() => {
+                if (contactInfo) {
+                    contactInfo.classList.remove('translate-y-8', 'opacity-0');
+                    contactInfo.classList.add('translate-y-0', 'opacity-100');
+                }
+            }, 200);
+            
+            // Stagger animate menu items (start after card animation)
+            const menuItems = mobileMenu.querySelectorAll('.mobile-menu-item');
+            menuItems.forEach((item, index) => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateX(-1rem)';
+                item.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+                
+                setTimeout(() => {
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateX(0)';
+                }, 400 + (index * 80));
+            });
+        });
+    }
+    
+    function closeMobileMenu() {
+        isMenuOpen = false;
+        menuButton.setAttribute('aria-expanded', 'false');
+        
+        // Restore scroll position and background
+        const scrollY = document.body.style.top;
+        document.body.style.overflow = '';
+        document.body.style.position = '';
+        document.body.style.width = '';
+        document.body.style.top = '';
+        document.documentElement.style.backgroundColor = '';
+        document.body.style.backgroundColor = '';
+        window.scrollTo(0, parseInt(scrollY || '0') * -1);
+        
+        // Toggle icons and colors
+        if (hamburgerIcon) hamburgerIcon.classList.remove('hidden');
+        if (closeIcon) closeIcon.classList.add('hidden');
+        if (menuButton) menuButton.classList.remove('text-white', 'hover:bg-white/10');
+        if (menuButton) menuButton.classList.add('text-gray-700', 'hover:bg-gray-100');
+        
+        // Animate out
+        if (backdrop) {
+            backdrop.classList.remove('opacity-100');
+            backdrop.classList.add('opacity-0');
+        }
+        
+        if (menuCard) {
+            menuCard.classList.remove('translate-y-0', 'opacity-100');
+            menuCard.classList.add('translate-y-8', 'opacity-0');
+        }
+        
+        if (contactInfo) {
+            contactInfo.classList.remove('translate-y-0', 'opacity-100');
+            contactInfo.classList.add('translate-y-8', 'opacity-0');
+        }
+        
+        // Hide menu after animation
+        setTimeout(() => {
+            if (!isMenuOpen) {
+                mobileMenu.classList.add('hidden');
+                
+                // Reset submenu states
+                const expandedSubmenus = mobileMenu.querySelectorAll('.mobile-submenu.expanded');
+                expandedSubmenus.forEach(submenu => {
+                    submenu.classList.remove('expanded');
+                    submenu.style.maxHeight = '0';
+                });
+                
+                const rotatedIcons = mobileMenu.querySelectorAll('.mobile-submenu-toggle.rotate-180');
+                rotatedIcons.forEach(icon => icon.classList.remove('rotate-180'));
+            }
+        }, 300);
+    }
+    
+    // Mobile submenu toggle
+    setupMobileMenuSubmenus();
 });
 
-// Functie voor submenu functionaliteit op mobiel
-function setupMobileSubmenu() {
-    // Voeg CSS toe voor mobiele submenu's
-    addMobileSubmenuCSS();
+// Setup mobile submenu toggles
+function setupMobileMenuSubmenus() {
+    const submenuItems = document.querySelectorAll('.mobile-menu-item.has-submenu');
     
-    // Alleen uitvoeren in mobiele weergave
-    function handleMobileSubmenu() {
-        const isDesktop = window.innerWidth >= 1024; // lg breakpoint in Tailwind
-        const menuItemsWithChildren = document.querySelectorAll('.menu-item-has-children');
-
-        menuItemsWithChildren.forEach(menuItem => {
-            const link = menuItem.querySelector('a');
-            const submenu = menuItem.querySelector('.sub-menu');
-            const icon = menuItem.querySelector('svg');
+    submenuItems.forEach(item => {
+        const link = item.querySelector('a');
+        const submenu = item.querySelector('.mobile-submenu');
+        const icon = link.querySelector('.mobile-submenu-toggle');
+        
+        if (link && submenu) {
+            // Hide submenu initially
+            submenu.style.maxHeight = '0';
+            submenu.style.overflow = 'hidden';
+            submenu.style.transition = 'max-height 0.3s ease-in-out';
             
-            // Verwijder hover effecten van het icon op mobiel
-            if (icon && !isDesktop) {
-                icon.classList.remove('transition-transform', 'duration-300', 'group-hover:rotate-180');
-                icon.classList.add('transition-transform', 'duration-300');
-            } else if (icon && isDesktop) {
-                // Herstel hover effecten op desktop
-                icon.classList.add('group-hover:rotate-180');
-            }
-
-            // Verwijder oude event listeners eerst (om dubbele events te voorkomen)
-            if (link.mobileClickHandler) {
-                link.removeEventListener('click', link.mobileClickHandler);
-                link.mobileClickHandler = null;
-            }
-
-            if (!isDesktop) {
-                // Op mobiel: eerste klik opent submenu, tweede klik navigeert naar de link
-                link.mobileClickHandler = function(e) {
-                    // Alleen als er een submenu is
-                    if (submenu) {
-                        const isExpanded = submenu.classList.contains('mobile-expanded');
-                        
-                        // Als het submenu al open is, laat de klik doorgaan naar de link
-                        if (isExpanded) {
-                            return true; // Sta de standaard actie toe (navigeren naar de link)
-                        }
-                        
-                        // Anders voorkom de navigatie en open het submenu
-                        e.preventDefault();
-                        
-                        // Sluit andere open submenu's
-                        const allExpandedSubmenus = document.querySelectorAll('.sub-menu.mobile-expanded');
-                        allExpandedSubmenus.forEach(menu => {
-                            if (menu !== submenu) {
-                                menu.classList.remove('mobile-expanded');
-                                menu.style.maxHeight = '0px';
-                                menu.style.visibility = 'hidden';
-                                const parentIcon = menu.parentElement.querySelector('svg');
-                                if (parentIcon) {
-                                    parentIcon.classList.remove('rotate-180');
-                                }
-                            }
-                        });
-                        
-                        // Submenu is dicht, open het
-                        submenu.classList.add('mobile-expanded');
-                        submenu.style.maxHeight = submenu.scrollHeight + 'px';
-                        submenu.style.visibility = 'visible';
-                        if (icon) {
-                            icon.classList.add('rotate-180');
-                        }
-                        
-                        // Log voor debugging
-                        console.log('Submenu geopend:', submenu);
-                    }
-                };
+            link.addEventListener('click', function(e) {
+                const isExpanded = submenu.classList.contains('expanded');
                 
-                link.addEventListener('click', link.mobileClickHandler);
-                
-                // Standaard verborgen submenu op mobiel
-                if (submenu) {
-                    submenu.style.maxHeight = '0px';
-                    submenu.style.overflow = 'hidden';
-                    submenu.style.visibility = 'hidden';
-                    submenu.style.transition = 'max-height 0.3s ease-in-out, visibility 0s';
+                if (!isExpanded) {
+                    // First click: expand submenu, prevent navigation
+                    e.preventDefault();
                     
-                    // Zorg dat submenu items zichtbaar zijn op mobiel
-                    const submenuItems = submenu.querySelectorAll('li');
-                    submenuItems.forEach(item => {
-                        const subLink = item.querySelector('a');
-                        if (subLink) {
-                            subLink.classList.add('block', 'py-1', 'pl-3', 'pr-4', 'text-gray-700', 'hover:bg-gray-50', 'lg:hover:bg-transparent', 'lg:border-0', 'lg:hover:text-primary-700', 'lg:p-0');
+                    // Close other submenus
+                    const allSubmenus = document.querySelectorAll('.mobile-submenu.expanded');
+                    allSubmenus.forEach(sub => {
+                        if (sub !== submenu) {
+                            sub.classList.remove('expanded');
+                            sub.style.maxHeight = '0';
+                            const parentIcon = sub.parentElement.querySelector('.mobile-submenu-toggle');
+                            if (parentIcon) parentIcon.classList.remove('rotate-180');
                         }
                     });
+                    
+                    // Expand this submenu
+                    submenu.classList.add('expanded');
+                    submenu.style.maxHeight = submenu.scrollHeight + 'px';
+                    if (icon) icon.classList.add('rotate-180');
                 }
-            } else {
-                // Op desktop: reset de styling voor hover functionaliteit
-                if (submenu) {
-                    submenu.style.maxHeight = '';
-                    submenu.style.overflow = '';
-                    submenu.style.visibility = '';
-                    submenu.classList.remove('mobile-expanded');
-                }
-            }
-        });
-    }
-
-    // Initiële setup
-    handleMobileSubmenu();
-
-    // Update bij resize
-    window.addEventListener('resize', handleMobileSubmenu);
-}
-
-// Functie om CSS toe te voegen voor mobiele submenu's
-function addMobileSubmenuCSS() {
-    // Controleer of de styling al bestaat
-    if (document.getElementById('mobile-submenu-styles')) {
-        return;
-    }
-    
-    // Maak een style element
-    const style = document.createElement('style');
-    style.id = 'mobile-submenu-styles';
-    style.textContent = `
-        @media (max-width: 1023px) {
-            /* Verwijder witruimte tussen menu items */
-            #mobile-menu ul li {
-                margin: 0;
-                padding: 0;
-            }
-            
-            #mobile-menu ul li a {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                padding: 0.35rem 0.5rem;
-            }
-            
-            /* Submenu styling */
-            .sub-menu {
-                display: block !important;
-                position: static;
-                box-shadow: none;
-                padding-left: 0.75rem;
-                border-left: 2px solid #e5e7eb;
-                margin-top: 0;
-                margin-bottom: 0;
-            }
-            
-            .sub-menu:not(.mobile-expanded) {
-                display: block !important;
-                max-height: 0 !important;
-                visibility: hidden !important;
-                opacity: 0 !important;
-                margin: 0 !important;
-                padding: 0 !important;
-                border-left: 0 !important;
-            }
-            
-            .sub-menu.mobile-expanded {
-                opacity: 1 !important;
-                visibility: visible !important;
-                padding-left: 0.75rem !important;
-                border-left: 2px solid #e5e7eb !important;
-            }
-            
-            /* Dichtere spacing voor submenu items */
-            .sub-menu li {
-                margin: 0 !important;
-            }
-            
-            .sub-menu li a {
-                padding-top: 0.25rem !important;
-                padding-bottom: 0.25rem !important;
-            }
-            
-            /* Animatie voor submenu toggle */
-            .sub-menu {
-                transition: max-height 0.3s ease-in-out, 
-                            opacity 0.2s ease-in-out, 
-                            visibility 0s linear 0.3s,
-                            padding 0.3s ease-in-out,
-                            border-left 0.3s ease-in-out,
-                            margin 0.3s ease-in-out;
-            }
-            
-            .sub-menu.mobile-expanded {
-                transition: max-height 0.3s ease-in-out, 
-                            opacity 0.2s ease-in-out, 
-                            visibility 0s linear 0s,
-                            padding 0.3s ease-in-out,
-                            border-left 0.3s ease-in-out,
-                            margin 0.3s ease-in-out;
-            }
-            
-            /* Icon animatie alleen op klik, niet op hover */
-            .menu-item-has-children a svg {
-                transform: rotate(0deg) !important;
-            }
-            
-            .menu-item-has-children a svg.rotate-180 {
-                transform: rotate(180deg) !important;
-            }
+                // Second click: allow navigation
+            });
         }
-    `;
-    
-    // Voeg aan document toe
-    document.head.appendChild(style);
-    
-    console.log('Mobiele submenu styling toegevoegd');
-}
-
-// Swiper initialisatie voor reviews block
-function initializeSwiper() {
-    // Controleer of Swiper beschikbaar is
-    if (typeof Swiper === 'undefined') {
-        console.log('Swiper is niet geladen');
-        return;
-    }
-    
-    // Zoek alle Swiper containers
-    const swiperContainers = document.querySelectorAll('.mySwiper');
-    
-    swiperContainers.forEach(container => {
-        // Controleer of er al een Swiper instance bestaat
-        if (container.swiper) {
-            return;
-        }
-        
-        // Initialiseer Swiper
-        const swiper = new Swiper(container, {
-            slidesPerView: 3,
-            spaceBetween: 28,
-            centeredSlides: true,
-            loop: true,
-            pagination: {
-                el: ".swiper-pagination",
-                clickable: true,
-            },
-            navigation: {
-                nextEl: ".swiper-button-next",
-                prevEl: ".swiper-button-prev",
-            },
-            breakpoints: {
-                0: {
-                    slidesPerView: 1,
-                    spaceBetween: 20,
-                    centeredSlides: false,
-                },
-                768: {
-                    slidesPerView: 2,
-                    spaceBetween: 28,
-                    centeredSlides: true,
-                },
-                1024: {
-                    slidesPerView: 3,
-                    spaceBetween: 32,
-                },
-            },
-        });
-        
-        console.log('Swiper geïnitialiseerd voor reviews block');
     });
 }
-
-// Initialiseer Swiper wanneer de pagina geladen is
-document.addEventListener('DOMContentLoaded', function() {
-    // Wacht even om er zeker van te zijn dat alle scripts geladen zijn
-    setTimeout(initializeSwiper, 100);
-});
-
-// Initialiseer Swiper ook na AJAX calls (voor ACF blocks)
-document.addEventListener('acf/ready', function() {
-    setTimeout(initializeSwiper, 100);
-});
 
 // AOS (Animate On Scroll) initialisatie
 function initializeAOS() {
@@ -371,63 +255,73 @@ window.addEventListener('load', function() {
 // Fallback: probeer AOS te initialiseren na een korte delay
 setTimeout(initializeAOS, 500);
 
-// PageDone Dropdown Menu Functionaliteit
-document.addEventListener('DOMContentLoaded', function() {
-    // Selecteer alle dropdown toggle buttons
-    const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+// Counter Animatie
+function initializeCounters() {
+    const counters = document.querySelectorAll('.counter-number');
     
-    dropdownToggles.forEach(toggle => {
-        toggle.addEventListener('click', function(e) {
-            e.preventDefault();
+    if (counters.length === 0) return;
+    
+    const animateCounter = (counter) => {
+        const target = parseFloat(counter.getAttribute('data-target'));
+        const suffix = counter.getAttribute('data-suffix') || '';
+        const duration = 2000; // 2 seconden
+        const startTime = performance.now();
+        
+        // Bepaal of het een decimaal getal is
+        const isDecimal = target % 1 !== 0;
+        
+        const updateCounter = (currentTime) => {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
             
-            // Haal het target menu ID op
-            const targetId = this.getAttribute('data-target');
+            // Easing functie voor soepele animatie
+            const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+            const current = target * easeOutQuart;
             
-            if (!targetId) return;
-            
-            // Zoek het dropdown menu met dit ID
-            const dropdownMenu = document.getElementById(targetId);
-            
-            if (!dropdownMenu) return;
-            
-            // Check of dit menu al open is
-            const isOpen = !dropdownMenu.classList.contains('hidden');
-            
-            // Sluit alle andere dropdown menus
-            document.querySelectorAll('.dropdown-menu').forEach(menu => {
-                if (menu !== dropdownMenu) {
-                    menu.classList.add('hidden');
-                }
-            });
-            
-            // Toggle het huidige menu
-            if (isOpen) {
-                dropdownMenu.classList.add('hidden');
+            // Format het getal
+            if (isDecimal) {
+                counter.textContent = current.toFixed(1);
             } else {
-                dropdownMenu.classList.remove('hidden');
+                counter.textContent = Math.floor(current);
+            }
+            
+            if (progress < 1) {
+                requestAnimationFrame(updateCounter);
+            } else {
+                // Eindig met exacte waarde
+                counter.textContent = isDecimal ? target.toFixed(1) : target;
+            }
+        };
+        
+        requestAnimationFrame(updateCounter);
+    };
+    
+    // Intersection Observer voor animatie bij zichtbaarheid
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateCounter(entry.target);
+                observer.unobserve(entry.target);
             }
         });
+    }, {
+        threshold: 0.5,
+        rootMargin: '0px'
     });
     
-    // Sluit dropdown bij klikken buiten het menu
-    document.addEventListener('click', function(e) {
-        // Check of de klik buiten een dropdown is
-        const isDropdownClick = e.target.closest('.dropdown-toggle') || e.target.closest('.dropdown-menu');
-        
-        if (!isDropdownClick) {
-            // Sluit alle dropdown menus
-            document.querySelectorAll('.dropdown-menu').forEach(menu => {
-                menu.classList.add('hidden');
-            });
-        }
+    counters.forEach(counter => {
+        // Reset naar 0
+        counter.textContent = '0';
+        observer.observe(counter);
     });
-    
-    // Sluit dropdown bij ESC toets
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-            document.querySelectorAll('.dropdown-menu').forEach(menu => {
-                menu.classList.add('hidden');
-            });
-        }
-    });
+}
+
+// Initialiseer counters
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(initializeCounters, 100);
+});
+
+// Re-initialiseer na AJAX calls (voor ACF blocks)
+document.addEventListener('acf/ready', function() {
+    setTimeout(initializeCounters, 100);
 });

@@ -21,7 +21,7 @@ $counters = get_field('counters');
       <div class="flex w-full h-full items-center justify-between flex-col gap-16">
         
         <!-- Title and Subtitle -->
-        <div class="block mb-24">
+        <div class="block mb-24" data-aos="fade-up">
           <?php if ($title) : ?>
           <h1 class="font-semibold text-4xl sm:text-5xl md:text-[64px] md:leading-snug text-white mx-auto mb-16 text-center">
             <?php echo nl2br(esc_html($title)); ?>
@@ -36,11 +36,11 @@ $counters = get_field('counters');
           
           <!-- USPs Section with CTA -->
           <?php if ($usps || ($button_text && $button_link)) : ?>
-          <div class="flex flex-col md:flex-row items-center p-3 border border-white/60 rounded-2xl lg:mt-10 gap-6 bg-white/10 backdrop-blur-md sm:w-max mx-auto">
+          <div class="flex flex-col md:flex-row items-center p-3 border border-white/60 rounded-2xl lg:mt-10 gap-6 bg-white/10 backdrop-blur-md lg:w-max mx-auto">
             <?php if ($usps) : ?>
             <div class="flex flex-col sm:flex-row items-center gap-6 sm:divide-x divide-white/20">
               <?php foreach ($usps as $usp) : ?>
-              <div class="flex flex-col items-start px-6 py-2">
+              <div class="flex flex-col items-center sm:items-start px-6 py-2">
                 <h3 class="text-base font-medium text-white mb-1"><?php echo esc_html($usp['title']); ?></h3>
                 <p class="text-xs font-medium text-gray-300"><?php echo esc_html($usp['description']); ?></p>
               </div>
@@ -60,11 +60,14 @@ $counters = get_field('counters');
         
         <!-- Counters Section -->
         <?php if ($counters) : ?>
-        <div class="flex flex-col min-[470px]:flex-row items-center gap-8 max-lg:justify-center">
-          <?php foreach ($counters as $counter) : ?>
+        <div class="flex flex-col min-[470px]:flex-row items-center gap-8 max-lg:justify-center" data-aos="fade-up" data-aos-delay="200">
+          <?php foreach ($counters as $counter) : 
+            $number = isset($counter['number']) ? floatval($counter['number']) : 0;
+            $suffix = isset($counter['suffix']) ? $counter['suffix'] : '';
+          ?>
           <div class="block">
             <h4 class="text-center font-semibold text-4xl leading-snug text-white mb-2">
-              <?php echo esc_html($counter['number']); ?>
+              <span class="counter-number" data-target="<?php echo esc_attr($number); ?>" data-suffix="<?php echo esc_attr($suffix); ?>">0</span><?php echo esc_html($suffix); ?>
             </h4>
             <p class="text-center text-base font-normal text-white whitespace-nowrap">
               <?php echo esc_html($counter['label']); ?>

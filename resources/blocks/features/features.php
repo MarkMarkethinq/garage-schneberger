@@ -12,7 +12,7 @@ $image = get_field('image');
 <section class="py-24">
   <div class="mx-auto max-w-7xl px-4 lg:px-5 xl:px-8">
     <?php if ($title) : ?>
-    <div class="mb-16 text-center">
+    <div class="mb-16 text-center" data-aos="fade-up">
       <h2 class="text-4xl text-center font-bold text-gray-900 leading-[3.25rem] max-w-lg mx-auto"><?php echo esc_html($title); ?></h2>
     </div>
     <?php endif; ?>
@@ -21,8 +21,8 @@ $image = get_field('image');
       <div class="w-full lg:max-w-lg">
         <div class="grid grid-cols-1 gap-8 lg:gap-11 max-w-md md:max-w-xl lg:max-w-full mx-auto">
           <?php if ($features) : ?>
-            <?php foreach ($features as $feature) : ?>
-            <div class="flex flex-col justify-center lg:flex-row lg:justify-start gap-4 lg:gap-6">
+            <?php $feature_index = 0; foreach ($features as $feature) : ?>
+            <div class="flex flex-col justify-center lg:flex-row lg:justify-start gap-4 lg:gap-6" data-aos="fade-right" data-aos-delay="<?php echo $feature_index * 100; ?>">
               <div class="relative xl:w-20 xl:h-20 w-16 h-16 flex items-center justify-center bg-primary-100 rounded-full flex-shrink-0">
                 <?php if (!empty($feature['icon'])) : ?>
                 <img src="<?php echo esc_url($feature['icon']['url']); ?>" 
@@ -39,14 +39,14 @@ $image = get_field('image');
                 <?php endif; ?>
               </div>
             </div>
-            <?php endforeach; ?>
+            <?php $feature_index++; endforeach; ?>
           <?php endif; ?>
         </div>
       </div>
       
       <!-- Image (no background) -->
       <?php if ($image) : ?>
-      <div class="w-full lg:max-w-lg flex justify-center">
+      <div class="w-full lg:max-w-lg flex justify-center" data-aos="fade-left" data-aos-delay="200">
         <img src="<?php echo esc_url($image['url']); ?>" 
              alt="<?php echo esc_attr($image['alt'] ?? ''); ?>" 
              class="rounded-3xl object-cover h-full"/>
