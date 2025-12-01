@@ -88,7 +88,7 @@ $contact_button = get_field('footer_contact_button_link', 'option');
             <?php endif; ?>
           </div>
         </div>
-        <div class="min-[1130px]:col-span-9 max-[1130px]:pt-10 lg:pl-14 col-span-1 w-full min-[1130px]:max-w-full mx-auto grid grid-cols-1 sm:grid-cols-3 gap-8 lg:gap-12">
+        <div class="min-[1130px]:col-span-9 max-[1130px]:pt-10 lg:pl-14 col-span-1 w-full min-[1130px]:max-w-full mx-auto !grid grid-cols-1 sm:grid-cols-3 gap-8 lg:gap-12">
           <div class="">
             <h6 class="text-lg font-medium text-white mb-7 max-sm:text-center"><?php echo esc_html($contact_heading ?: 'Contact'); ?></h6>
             <ul class="flex flex-col gap-3">
