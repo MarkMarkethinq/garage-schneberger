@@ -13,6 +13,10 @@ html, body {
     max-width: 100%;
 }
 
+#asac-container .asac-wrap{
+    @apply p-4 md:p-0
+}
+
 /*GF styling*/
 
 .gform_wrapper input[type=text], .gform_wrapper input[type=email], .gform_wrapper input[type=tel], .ginput_container textarea, .gfield_select, #order_comments{
