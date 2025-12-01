@@ -31,7 +31,7 @@ $quote = get_field('quote');
                                     <span class="font-bold"><?php echo esc_html($titel_bold); ?></span>
                                 <?php endif; ?>
                                 <?php if ($titel_regular) : ?>
-                                    <?php echo esc_html($titel_regular); ?>
+                                    <br><?php echo esc_html($titel_regular); ?>
                                 <?php endif; ?>
                             </h1>
                         </div>

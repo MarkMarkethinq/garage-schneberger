@@ -1570,6 +1570,10 @@ h1, h2 {
   display: table;
 }
 
+.\!grid {
+  display: grid !important;
+}
+
 .grid {
   display: grid;
 }
@@ -1874,6 +1878,10 @@ h1, h2 {
 
 .justify-between {
   justify-content: space-between;
+}
+
+.\!gap-8 {
+  gap: 2rem !important;
 }
 
 .gap-1 {
@@ -2285,6 +2293,10 @@ h1, h2 {
 .py-8 {
   padding-top: 2rem;
   padding-bottom: 2rem;
+}
+
+.\!pb-14 {
+  padding-bottom: 3.5rem !important;
 }
 
 .pb-12 {

@@ -29,7 +29,7 @@ $contact_button = get_field('footer_contact_button_link', 'option');
 ?>
 <footer class="pt-16 pb-7 bg-[#1C1C1E]">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 min-[1130px]:grid-cols-12 gap-8 lg:gap-0 pb-14 border-b-2 border-gray-700">
+      <div class="!grid grid-cols-1 min-[1130px]:grid-cols-12 !gap-8 lg:gap-0 !pb-14 border-b-2 border-gray-700">
         <div class="min-[1130px]:col-span-3 col-span-1 w-full min-[1130px]:max-w-full mx-auto">
           <div class="flex flex-col max-sm:items-center gap-8 w-full ">
             <?php if($footer_logo): ?>
