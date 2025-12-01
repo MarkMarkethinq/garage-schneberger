@@ -133,9 +133,9 @@ $contact_button = get_field('footer_contact_button_link', 'option');
           </div>
         </div>
       </div>
-      <div class="flex flex-col-reverse gap-5 md:flex-row items-center first-letter:items-center justify-between pt-7">
-        <p class="font-normal text-sm text-gray-400"><?php echo esc_html($copyright ? str_replace('{year}', date('Y'), $copyright) : '©' . date('Y') . ' All rights reserved.'); ?></p>
-        <ul class="flex items-center gap-9">
+      <div class="flex flex-col-reverse gap-5 md:grid md:grid-cols-3 items-center pt-7">
+        <p class="font-normal text-sm text-gray-400 md:justify-self-start"><?php echo esc_html($copyright ? str_replace('{year}', date('Y'), $copyright) : '©' . date('Y') . ' All rights reserved.'); ?></p>
+        <ul class="flex items-center justify-center gap-9">
           <?php if($terms_link): ?>
           <li><a href="<?php echo esc_url($terms_link); ?>"
               class="text-gray-400 text-sm font-normal transition-all duration-300 hover:text-white focus-within:text-white focus-within:outline-0"><?php echo esc_html($terms_text ?: 'Terms'); ?></a>
@@ -152,14 +152,17 @@ $contact_button = get_field('footer_contact_button_link', 'option');
           </li>
           <?php endif; ?>
         </ul>
-        <?php if($contact_button && $contact_button['url']): ?>
-          <a href="<?php echo esc_url($contact_button['url']); ?>"
-             class="bg-white/10 border border-white/60 text-white px-6 py-2.5 rounded-2xl backdrop-blur hover:bg-white/20 transition-all text-sm font-medium whitespace-nowrap"
-             <?php if($contact_button['target']): ?>target="<?php echo esc_attr($contact_button['target']); ?>"<?php endif; ?>>
-            <?php echo esc_html($contact_button['title'] ?: 'Neem contact op'); ?>
-          </a>
-        <?php endif; ?>
+        <div class="md:justify-self-end">
+          <?php if($contact_button && $contact_button['url']): ?>
+            <a href="<?php echo esc_url($contact_button['url']); ?>"
+               class="bg-white/10 border border-white/60 text-white px-6 py-2.5 rounded-2xl backdrop-blur hover:bg-white/20 transition-all text-sm font-medium whitespace-nowrap"
+               <?php if($contact_button['target']): ?>target="<?php echo esc_attr($contact_button['target']); ?>"<?php endif; ?>>
+              <?php echo esc_html($contact_button['title'] ?: 'Neem contact op'); ?>
+            </a>
+          <?php endif; ?>
+        </div>
       </div>
+      <p class="text-center font-normal text-sm text-gray-400 mt-6">Ontwikkeling door <a href="https://developing.nl" target="_blank" rel="noopener" class="hover:text-white transition-colors">Developing</a></p>
     </div>
 </footer>
                                                     

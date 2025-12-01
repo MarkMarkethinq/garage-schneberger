@@ -25,7 +25,8 @@ $includes = [
     'includes/popup-scripts.php',
     'includes/theme-customizer.php',
     'includes/editor-styles.php',
-    'includes/acf-block-examples.php'
+    'includes/acf-block-examples.php',
+    'includes/shortcodes.php'
 ];
 
 foreach ($includes as $file) {
