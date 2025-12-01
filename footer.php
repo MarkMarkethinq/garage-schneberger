@@ -81,7 +81,7 @@ $contact_button = get_field('footer_contact_button_link', 'option');
                 <?php if($logo['image']): ?>
                   <img src="<?php echo esc_url($logo['image']['url']); ?>" 
                        alt="<?php echo esc_attr($logo['alt_text'] ?: $logo['image']['alt']); ?>" 
-                       class="h-12 w-auto object-contain bg-white p-2 rounded">
+                       class="h-16 w-auto object-contain bg-white p-2 rounded">
                 <?php endif; ?>
               <?php endforeach; ?>
             </div>
