@@ -22,14 +22,31 @@
   <body <?php body_class(); ?>>
 <?php
 // Get ACF header options
-$header_logo = get_field('header_logo', 'option');
+$global_header_style = get_field('header_style', 'option') ?: 'light';
+$page_header_style = get_field('page_header_style');
+$header_logo_light = get_field('header_logo', 'option');
+$header_logo_dark = get_field('header_logo_dark', 'option');
 $header_button = get_field('header_button_link', 'option');
 $mobile_menu_contact_label = get_field('mobile_menu_contact_label', 'option');
 $mobile_menu_phone = get_field('mobile_menu_phone', 'option');
+
+// Determine header style: page setting overrides global if not 'default'
+$header_style = ($page_header_style && $page_header_style !== 'default') ? $page_header_style : $global_header_style;
+
+// Determine which logo to use based on header style
+$header_logo = ($header_style === 'dark' && $header_logo_dark) ? $header_logo_dark : $header_logo_light;
+
+// Header classes based on style
+$header_bg_classes = ($header_style === 'dark') ? 'bg-[#1C1C1E]' : 'bg-white';
+$header_text_classes = ($header_style === 'dark') ? 'text-white' : 'text-gray-500';
+$header_button_classes = ($header_style === 'dark') 
+    ? 'bg-white/10 border border-white/60 text-white backdrop-blur hover:bg-white/20' 
+    : 'bg-primary-700 border border-primary-700 text-white hover:bg-transparent hover:text-primary-700';
+$mobile_toggle_classes = ($header_style === 'dark') ? 'text-white hover:bg-white/10' : 'text-gray-700 hover:bg-gray-100';
 ?>
 
 <!-- <header class="py-5 lg:fixed transition-all top-0 left-0 z-50 duration-500 w-full bg-white border-b border-gray-200"> -->
-    <header class="py-5 transition-all  left-0 z-50 duration-500 w-full bg-white">
+    <header class="py-5 transition-all left-0 z-50 duration-500 w-full <?php echo esc_attr($header_bg_classes); ?>">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between">
         <!-- Logo -->
@@ -60,7 +77,7 @@ $mobile_menu_phone = get_field('mobile_menu_phone', 'option');
           <?php wp_nav_menu ([
                         'menu' => 'main',
                         'container' => 'ul',
-                        'menu_class' => 'flex gap-8 items-center text-sm md:text-base font-medium text-gray-500',
+                        'menu_class' => 'flex gap-8 items-center text-sm md:text-base font-medium ' . esc_attr($header_text_classes),
                         'walker' => new WPDocs_Walker_Nav_Menu ()
                     ]);  ?>
         </div>
@@ -69,13 +86,13 @@ $mobile_menu_phone = get_field('mobile_menu_phone', 'option');
         <div class="hidden lg:flex items-center gap-4">
           <?php if($header_button && $header_button['url']): ?>
             <a href="<?php echo esc_url($header_button['url']); ?>"
-              class="bg-primary-700 border border-primary-700 text-white rounded-xl cursor-pointer font-medium text-center shadow-xs transition-all duration-500 py-2.5 px-5 text-sm hover:bg-transparent hover:text-primary-700 whitespace-nowrap"
+              class="<?php echo esc_attr($header_button_classes); ?> rounded-xl cursor-pointer font-medium text-center shadow-xs transition-all duration-500 py-2.5 px-5 text-sm whitespace-nowrap"
               <?php if($header_button['target']): ?>target="<?php echo esc_attr($header_button['target']); ?>"<?php endif; ?>>
               <?php echo esc_html($header_button['title'] ?: 'Plan een afspraak'); ?>
             </a>
           <?php else: ?>
             <a href="/contact"
-              class="bg-primary-700 border border-primary-700 text-white rounded-xl cursor-pointer font-medium text-center shadow-xs transition-all duration-500 py-2.5 px-5 text-sm hover:bg-transparent hover:text-primary-700 whitespace-nowrap">
+              class="<?php echo esc_attr($header_button_classes); ?> rounded-xl cursor-pointer font-medium text-center shadow-xs transition-all duration-500 py-2.5 px-5 text-sm whitespace-nowrap">
               Plan een afspraak
             </a>
           <?php endif; ?>
@@ -83,7 +100,7 @@ $mobile_menu_phone = get_field('mobile_menu_phone', 'option');
 
         <!-- Mobile Menu Toggle -->
         <button id="mobile-menu-toggle" type="button"
-          class="relative z-50 inline-flex items-center p-2 text-sm text-gray-700 rounded-xl lg:hidden hover:bg-gray-100 focus:outline-none transition-all duration-300"
+          class="relative z-50 inline-flex items-center p-2 text-sm <?php echo esc_attr($mobile_toggle_classes); ?> rounded-xl lg:hidden focus:outline-none transition-all duration-300"
           aria-controls="mobile-menu" aria-expanded="false">
           <span class="sr-only">Open main menu</span>
           <!-- Hamburger Icon -->

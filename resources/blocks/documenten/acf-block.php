@@ -36,6 +36,33 @@ add_action('acf/init', function() {
                     'type' => 'accordion',
                     'open' => 1,
                 ],
+                // Tab: Layout
+                [
+                    'key' => 'field_documenten_tab_layout',
+                    'label' => 'Layout',
+                    'name' => '',
+                    'type' => 'tab',
+                    'placement' => 'top',
+                ],
+                [
+                    'key' => 'field_documenten_background',
+                    'label' => 'Achtergrond',
+                    'name' => 'background',
+                    'type' => 'select',
+                    'choices' => [
+                        'transparent' => 'Transparant',
+                        'gray' => 'Lichtgrijs',
+                        'dark' => 'Donker',
+                    ],
+                ],
+                // Tab: Content
+                [
+                    'key' => 'field_documenten_tab_content',
+                    'label' => 'Content',
+                    'name' => '',
+                    'type' => 'tab',
+                    'placement' => 'top',
+                ],
                 [
                     'key' => 'field_documenten_title',
                     'label' => 'Titel',

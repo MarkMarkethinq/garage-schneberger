@@ -23,7 +23,7 @@ if ($background === 'gray') {
     $bg_classes = 'bg-[#1C1C1E]';
     $title_classes = 'text-white';
     $text_classes = 'text-gray-300';
-    $button_classes = 'bg-white hover:bg-gray-100 text-gray-900';
+    $button_classes = 'bg-white/10 border border-white/60 text-white backdrop-blur hover:bg-white/20';
 }
 
 // Grid classes based on position

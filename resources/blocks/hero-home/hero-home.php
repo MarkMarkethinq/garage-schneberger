@@ -11,9 +11,18 @@ $usps = get_field('usps');
 $button_text = get_field('button_text');
 $button_link = get_field('button_link');
 $counters = get_field('counters');
+$background = get_field('background') ?: 'transparent';
+
+// Background classes
+$bg_classes = '';
+if ($background === 'gray') {
+    $bg_classes = 'bg-gray-100';
+} elseif ($background === 'dark') {
+    $bg_classes = 'bg-[#1C1C1E]';
+}
 ?>
 
-<section class="relative p-5 lg:h-full bg-cover">
+<section class="relative p-5 lg:h-full bg-cover <?php echo esc_attr($bg_classes); ?>">
   <div class="w-full h-full bg-center bg-cover pt-24 pb-12 overflow-hidden rounded-3xl relative z-0"
     style="background-image: url(<?php echo esc_url($background_image); ?>);">
     <div class="absolute w-full h-full top-0 left-0 bg-black/40 z-10"></div>

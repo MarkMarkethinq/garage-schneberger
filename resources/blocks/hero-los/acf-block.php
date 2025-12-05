@@ -35,6 +35,26 @@ add_action('acf/init', function () {
                     'open'  => 1,
                 ],
 
+                // Tab: Layout
+                [
+                    'key'       => 'field_hero_los_tab_layout',
+                    'label'     => 'Layout',
+                    'name'      => '',
+                    'type'      => 'tab',
+                    'placement' => 'top',
+                ],
+                [
+                    'key'     => 'field_hero_los_background',
+                    'label'   => 'Achtergrond',
+                    'name'    => 'background',
+                    'type'    => 'select',
+                    'choices' => [
+                        'transparent' => 'Transparant',
+                        'gray' => 'Lichtgrijs',
+                        'dark' => 'Donker',
+                    ],
+                ],
+
                 // Tab: Content
                 [
                     'key'       => 'field_hero_los_tab_content',

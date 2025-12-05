@@ -42,6 +42,26 @@ function register_contact_map_fields() {
                     'open' => 1,
                 ),
 
+                // Tab: Layout
+                array(
+                    'key' => 'field_cm_tab_layout',
+                    'label' => 'Layout',
+                    'name' => '',
+                    'type' => 'tab',
+                    'placement' => 'top',
+                ),
+                array(
+                    'key' => 'field_cm_background',
+                    'label' => 'Achtergrond',
+                    'name' => 'background',
+                    'type' => 'select',
+                    'choices' => array(
+                        'transparent' => 'Transparant',
+                        'gray' => 'Lichtgrijs',
+                        'dark' => 'Donker',
+                    ),
+                ),
+
                 // Tab: Content
                 array(
                     'key' => 'field_cm_tab_content',

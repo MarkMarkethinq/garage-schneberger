@@ -1490,6 +1490,11 @@ h1, h2 {
   margin-bottom: 1.5rem;
 }
 
+.my-16 {
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+}
+
 .mb-1 {
   margin-bottom: 0.25rem;
 }
@@ -2602,6 +2607,10 @@ h1, h2 {
 
 .backdrop-blur-xl {
   --tw-backdrop-blur: blur(24px);
+  backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+}
+
+.backdrop-filter {
   backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
 }
 
@@ -3746,6 +3755,11 @@ body .acf-block-fields .wp-editor-content ol {
   color: rgb(17 24 39 / var(--tw-text-opacity, 1));
 }
 
+.prose-headings\:text-white :is(:where(h1, h2, h3, h4, h5, h6, th):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+}
+
 .prose-h2\:mb-4 :is(:where(h2):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
   margin-bottom: 1rem;
 }
@@ -3798,9 +3812,19 @@ body .acf-block-fields .wp-editor-content ol {
   color: rgb(75 85 99 / var(--tw-text-opacity, 1));
 }
 
+.prose-p\:text-gray-300 :is(:where(p):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
+  --tw-text-opacity: 1;
+  color: rgb(209 213 219 / var(--tw-text-opacity, 1));
+}
+
 .prose-a\:text-primary-700 :is(:where(a):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
   --tw-text-opacity: 1;
   color: rgb(215 17 22 / var(--tw-text-opacity, 1));
+}
+
+.prose-a\:text-primary-400 :is(:where(a):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
+  --tw-text-opacity: 1;
+  color: rgb(248 113 113 / var(--tw-text-opacity, 1));
 }
 
 .prose-a\:no-underline :is(:where(a):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
@@ -3818,6 +3842,11 @@ body .acf-block-fields .wp-editor-content ol {
 .prose-strong\:text-gray-900 :is(:where(strong):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
   --tw-text-opacity: 1;
   color: rgb(17 24 39 / var(--tw-text-opacity, 1));
+}
+
+.prose-strong\:text-white :is(:where(strong):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity, 1));
 }
 
 .prose-ol\:my-4 :is(:where(ol):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
@@ -3847,6 +3876,11 @@ body .acf-block-fields .wp-editor-content ol {
   color: rgb(75 85 99 / var(--tw-text-opacity, 1));
 }
 
+.prose-li\:text-gray-300 :is(:where(li):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
+  --tw-text-opacity: 1;
+  color: rgb(209 213 219 / var(--tw-text-opacity, 1));
+}
+
 .prose-table\:w-full :is(:where(table):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
   width: 100%;
 }
@@ -3864,9 +3898,17 @@ body .acf-block-fields .wp-editor-content ol {
   border-color: rgb(229 231 235 / var(--tw-border-opacity, 1));
 }
 
+.prose-th\:border-white\/20 :is(:where(th):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
+  border-color: rgb(255 255 255 / 0.2);
+}
+
 .prose-th\:bg-gray-50 :is(:where(th):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
   --tw-bg-opacity: 1;
   background-color: rgb(249 250 251 / var(--tw-bg-opacity, 1));
+}
+
+.prose-th\:bg-white\/10 :is(:where(th):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
+  background-color: rgb(255 255 255 / 0.1);
 }
 
 .prose-th\:px-4 :is(:where(th):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
@@ -3894,6 +3936,10 @@ body .acf-block-fields .wp-editor-content ol {
 .prose-td\:border-gray-200 :is(:where(td):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
   --tw-border-opacity: 1;
   border-color: rgb(229 231 235 / var(--tw-border-opacity, 1));
+}
+
+.prose-td\:border-white\/20 :is(:where(td):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
+  border-color: rgb(255 255 255 / 0.2);
 }
 
 .prose-td\:px-4 :is(:where(td):not(:where([class~="not-prose"],[class~="not-prose"] *))) {

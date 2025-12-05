@@ -36,10 +36,32 @@ acf_add_local_field_group(array(
             'placement' => 'top',
         ),
         array(
+            'key' => 'field_header_style',
+            'label' => 'Header Stijl',
+            'name' => 'header_style',
+            'type' => 'select',
+            'instructions' => 'Kies de standaard header stijl. Per pagina kan dit worden overschreven.',
+            'choices' => array(
+                'light' => 'Licht (witte achtergrond)',
+                'dark' => 'Donker (donkere achtergrond)',
+            ),
+        ),
+        array(
             'key' => 'field_header_logo',
-            'label' => 'Header Logo',
+            'label' => 'Header Logo (licht)',
             'name' => 'header_logo',
             'type' => 'image',
+            'instructions' => 'Logo voor de lichte header (donker logo)',
+            'return_format' => 'array',
+            'preview_size' => 'medium',
+            'library' => 'all',
+        ),
+        array(
+            'key' => 'field_header_logo_dark',
+            'label' => 'Header Logo (donker)',
+            'name' => 'header_logo_dark',
+            'type' => 'image',
+            'instructions' => 'Logo voor de donkere header (licht logo). Laat leeg om het standaard logo te gebruiken.',
             'return_format' => 'array',
             'preview_size' => 'medium',
             'library' => 'all',
@@ -330,6 +352,38 @@ acf_add_local_field_group(array(
             ),
         ),
     ),
+));
+
+// Page-specific header settings
+acf_add_local_field_group(array(
+    'key' => 'group_page_header_settings',
+    'title' => 'Pagina Header Instellingen',
+    'fields' => array(
+        array(
+            'key' => 'field_page_header_style',
+            'label' => 'Header Stijl',
+            'name' => 'page_header_style',
+            'type' => 'select',
+            'instructions' => 'Overschrijf de standaard header stijl voor deze pagina.',
+            'choices' => array(
+                'default' => 'Standaard (gebruik theme instelling)',
+                'light' => 'Licht (witte achtergrond)',
+                'dark' => 'Donker (donkere achtergrond)',
+            ),
+        ),
+    ),
+    'location' => array(
+        array(
+            array(
+                'param' => 'post_type',
+                'operator' => '==',
+                'value' => 'page',
+            ),
+        ),
+    ),
+    'position' => 'side',
+    'style' => 'default',
+    'label_placement' => 'top',
 ));
 
 endif;

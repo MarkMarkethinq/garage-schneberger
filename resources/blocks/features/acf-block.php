@@ -42,6 +42,26 @@ function register_features_fields() {
                     'open' => 1,
                 ),
 
+                // Tab: Layout
+                array(
+                    'key' => 'field_features_tab_layout',
+                    'label' => 'Layout',
+                    'name' => '',
+                    'type' => 'tab',
+                    'placement' => 'top',
+                ),
+                array(
+                    'key' => 'field_features_background',
+                    'label' => 'Achtergrond',
+                    'name' => 'background',
+                    'type' => 'select',
+                    'choices' => array(
+                        'transparent' => 'Transparant',
+                        'gray' => 'Lichtgrijs',
+                        'dark' => 'Donker',
+                    ),
+                ),
+
                 // Tab: Content
                 array(
                     'key' => 'field_features_tab_content',

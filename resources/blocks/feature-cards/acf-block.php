@@ -73,6 +73,19 @@ add_action('acf/init', function () {
                         '3' => '3 kolommen',
                         '4' => '4 kolommen',
                     ],
+                    'wrapper' => ['width' => '50'],
+                ],
+                [
+                    'key'     => 'field_feature_cards_background',
+                    'label'   => 'Achtergrond',
+                    'name'    => 'background',
+                    'type'    => 'select',
+                    'choices' => [
+                        'transparent' => 'Transparant',
+                        'gray' => 'Lichtgrijs',
+                        'dark' => 'Donker',
+                    ],
+                    'wrapper' => ['width' => '50'],
                 ],
 
                 // Tab: Cards

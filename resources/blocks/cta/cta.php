@@ -8,9 +8,19 @@ $background_image = get_field('background_image');
 $title = get_field('title');
 $text = get_field('text');
 $button = get_field('button');
+$background = get_field('background') ?: 'transparent';
+
+// Background classes
+$bg_classes = '';
+if ($background === 'gray') {
+    $bg_classes = 'bg-gray-100';
+} elseif ($background === 'dark') {
+    $bg_classes = 'bg-[#1C1C1E]';
+}
 ?>
 
-<div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 mb-16">
+<div class="py-16 <?php echo esc_attr($bg_classes); ?>">
+  <div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
     <section class="relative py-16 bg-cover bg-center bg-no-repeat rounded-[24px] overflow-hidden" data-aos="zoom-in"
         style="background-image: url(<?php echo $background_image ? esc_url($background_image['url']) : ''; ?>);">
         <!-- Black overlay -->
@@ -37,4 +47,5 @@ $button = get_field('button');
             </div>
         </div>
     </section>
+  </div>
 </div>
