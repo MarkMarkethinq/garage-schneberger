@@ -196,13 +196,23 @@ function register_hero_home_fields() {
                     ),
                 ),
 
-                // Tab: Afbeelding
+                // Tab: Media
                 array(
-                    'key' => 'field_hh_tab_afbeelding',
-                    'label' => 'Afbeelding',
+                    'key' => 'field_hh_tab_media',
+                    'label' => 'Media',
                     'name' => '',
                     'type' => 'tab',
                     'placement' => 'top',
+                ),
+                array(
+                    'key' => 'field_hh_media_type',
+                    'label' => 'Media Type',
+                    'name' => 'media_type',
+                    'type' => 'select',
+                    'choices' => array(
+                        'image' => 'Afbeelding',
+                        'video' => 'Video',
+                    ),
                 ),
                 array(
                     'key' => 'field_hero_background_image',
@@ -211,7 +221,50 @@ function register_hero_home_fields() {
                     'type' => 'image',
                     'return_format' => 'url',
                     'preview_size' => 'large',
-                    'required' => 1,
+                    'conditional_logic' => array(
+                        array(
+                            array(
+                                'field' => 'field_hh_media_type',
+                                'operator' => '==',
+                                'value' => 'image',
+                            ),
+                        ),
+                    ),
+                ),
+                array(
+                    'key' => 'field_hero_background_video',
+                    'label' => 'Achtergrond Video',
+                    'name' => 'background_video',
+                    'type' => 'file',
+                    'return_format' => 'url',
+                    'mime_types' => 'mp4,webm',
+                    'conditional_logic' => array(
+                        array(
+                            array(
+                                'field' => 'field_hh_media_type',
+                                'operator' => '==',
+                                'value' => 'video',
+                            ),
+                        ),
+                    ),
+                ),
+                array(
+                    'key' => 'field_hero_video_poster',
+                    'label' => 'Video Poster (fallback afbeelding)',
+                    'name' => 'video_poster',
+                    'type' => 'image',
+                    'return_format' => 'url',
+                    'preview_size' => 'medium',
+                    'instructions' => 'Wordt getoond terwijl de video laadt',
+                    'conditional_logic' => array(
+                        array(
+                            array(
+                                'field' => 'field_hh_media_type',
+                                'operator' => '==',
+                                'value' => 'video',
+                            ),
+                        ),
+                    ),
                 ),
                 // Accordion End
                 array(

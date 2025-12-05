@@ -4,7 +4,10 @@
  */
 
 // Get ACF fields
+$media_type = get_field('media_type') ?: 'image';
 $background_image = get_field('background_image');
+$background_video = get_field('background_video');
+$video_poster = get_field('video_poster');
 $title = get_field('title');
 $subtitle = get_field('subtitle');
 $usps = get_field('usps');
@@ -24,7 +27,12 @@ if ($background === 'gray') {
 
 <section class="relative p-5 lg:h-full bg-cover <?php echo esc_attr($bg_classes); ?>">
   <div class="w-full h-full bg-center bg-cover pt-24 pb-12 overflow-hidden rounded-3xl relative z-0"
-    style="background-image: url(<?php echo esc_url($background_image); ?>);">
+    <?php if ($media_type === 'image' && $background_image) : ?>style="background-image: url(<?php echo esc_url($background_image); ?>);"<?php endif; ?>>
+    <?php if ($media_type === 'video' && $background_video) : ?>
+    <video class="absolute inset-0 w-full h-full object-cover" autoplay muted loop playsinline<?php if ($video_poster) : ?> poster="<?php echo esc_url($video_poster); ?>"<?php endif; ?>>
+      <source src="<?php echo esc_url($background_video); ?>" type="video/mp4">
+    </video>
+    <?php endif; ?>
     <div class="absolute w-full h-full top-0 left-0 bg-black/40 z-10"></div>
     <div class="w-full px-8 lg:px-24 h-full relative z-20">
       <div class="flex w-full h-full items-center justify-between flex-col gap-16">
