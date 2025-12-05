@@ -1655,6 +1655,10 @@ h1, h2 {
   height: 1px;
 }
 
+.h-\[300px\] {
+  height: 300px;
+}
+
 .max-h-\[500px\] {
   max-height: 500px;
 }
@@ -1758,6 +1762,18 @@ h1, h2 {
 
 .max-w-none {
   max-width: none;
+}
+
+.max-w-3xl {
+  max-width: 48rem;
+}
+
+.max-w-5xl {
+  max-width: 64rem;
+}
+
+.max-w-xl {
+  max-width: 36rem;
 }
 
 .flex-1 {
