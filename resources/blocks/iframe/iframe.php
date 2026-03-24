@@ -8,6 +8,7 @@ $title = get_field('title');
 $description = get_field('description');
 $iframe_code = get_field('iframe_code');
 $iframe_height = get_field('iframe_height') ?: 500;
+$iframe_height_mobile = get_field('iframe_height_mobile');
 $max_width = get_field('max_width') ?: 'full';
 $background = get_field('background') ?: 'transparent';
 
@@ -52,7 +53,18 @@ $container_max_width = $max_width_classes[$max_width] ?? 'max-w-7xl';
             <?php 
             // Make iframe responsive - remove existing width/height and set custom
             $responsive_iframe = preg_replace('/(width|height)="[^"]*"/i', '', $iframe_code);
-            $responsive_iframe = str_replace('<iframe', '<iframe class="w-full" height="' . esc_attr($iframe_height) . '"', $responsive_iframe);
+            
+            // Add inline style for responsive heights
+            if ($iframe_height_mobile) {
+                // Use inline style with ID for media query
+                $iframe_id = 'iframe-' . uniqid();
+                $responsive_iframe = str_replace('<iframe', '<iframe id="' . $iframe_id . '" class="w-full" style="height: ' . $iframe_height . 'px;"', $responsive_iframe);
+                
+                // Add media query for mobile height
+                $responsive_iframe = '<style>@media (max-width: 639px) { #' . $iframe_id . ' { height: ' . $iframe_height_mobile . 'px !important; } }</style>' . $responsive_iframe;
+            } else {
+                $responsive_iframe = str_replace('<iframe', '<iframe class="w-full" style="height: ' . $iframe_height . 'px;"', $responsive_iframe);
+            }
             echo $responsive_iframe; 
             ?>
         </div>

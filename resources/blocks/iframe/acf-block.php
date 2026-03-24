@@ -109,6 +109,15 @@ add_action('acf/init', function() {
                     'min' => 100,
                     'max' => 2000,
                 ],
+                [
+                    'key' => 'field_iframe_height_mobile',
+                    'label' => 'Hoogte mobiel (px)',
+                    'name' => 'iframe_height_mobile',
+                    'type' => 'number',
+                    'instructions' => 'Hoogte van de iframe op mobiel in pixels. Laat leeg om dezelfde hoogte als desktop te gebruiken.',
+                    'min' => 100,
+                    'max' => 2000,
+                ],
 
                 // Accordion End
                 [

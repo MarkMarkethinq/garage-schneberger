@@ -1558,6 +1558,10 @@ h1, h2 {
   display: inline-block;
 }
 
+.inline {
+  display: inline;
+}
+
 .flex {
   display: flex;
 }
@@ -3961,6 +3965,10 @@ body .acf-block-fields .wp-editor-content ol {
 }
 
 @media not all and (min-width: 640px) {
+  .max-sm\:\!h-\[\%dpx\] {
+    height: %dpx !important;
+  }
+
   .max-sm\:items-center {
     align-items: center;
   }
@@ -3977,6 +3985,10 @@ body .acf-block-fields .wp-editor-content ol {
 }
 
 @media (min-width: 640px) {
+  .sm\:\!h-\[\%dpx\] {
+    height: %dpx !important;
+  }
+
   .sm\:w-fit {
     width: -moz-fit-content;
     width: fit-content;
